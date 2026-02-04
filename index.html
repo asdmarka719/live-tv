@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة البث المباشر | Live TV</title>
+    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
+    <style>
+        :root { --main-color: #e91e63; --bg-dark: #0a0a0a; }
+        body { background-color: var(--bg-dark); color: white; font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; }
+        header { background: #1a1a1a; padding: 15px; border-bottom: 2px solid var(--main-color); }
+        .main-container { max-width: 1100px; margin: auto; padding: 20px; }
+        .video-box { position: relative; width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .video-js { width: 100% !important; height: 500px !important; }
+        
+        .categories { margin-top: 30px; }
+        .cat-title { border-right: 4px solid var(--main-color); padding-right: 10px; margin: 20px 0; font-size: 1.5rem; }
+        
+        .channel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+        .channel-card { background: #1e1e1e; border-radius: 8px; padding: 15px; text-align: center; cursor: pointer; transition: 0.3s; border: 1px solid #333; }
+        .channel-card:hover { transform: translateY(-5px); border-color: var(--main-color); background: #252525; }
+        .channel-card img { width: 50px; height: 50px; margin-bottom: 10px; object-fit: contain; }
+        
+        @media (max-width: 768px) { .video-js { height: 250px !important; } }
+    </style>
+</head>
+<body>
+
+<header>
+    <h2>📺 رفيق تي في - بث مباشر</h2>
+</header>
+
+<div class="main-container">
+    <div class="video-box">
+        <video id="main-player" class="video-js vjs-big-play-centered vjs-theme-city" controls preload="auto" poster="https://bit.ly/3X6Ld8G">
+            <source src="" type="application/x-mpegURL">
+        </video>
+    </div>
+
+    <div class="categories">
+        <h3 class="cat-title">قنوات beIN الرياضية</h3>
+        <div class="channel-grid" id="bein-channels">
+            <div class="channel-card" onclick="playChan('https://example.com/bein1.m3u8')">beIN Sports 1</div>
+            <div class="channel-card" onclick="playChan('https://example.com/bein2.m3u8')">beIN Sports 2</div>
+        </div>
+
+        <h3 class="cat-title">القنوات اليمنية</h3>
+        <div class="channel-grid">
+            <div class="channel-card" onclick="playChan('https://yemen-tv.com/live.m3u8')">اليمن الفضائية</div>
+            <div class="channel-card" onclick="playChan('https://almahriah.net/live.m3u8')">المهرية</div>
+            <div class="channel-card" onclick="playChan('https://suhail.tv/live.m3u8')">قناة سهيل</div>
+        </div>
+
+        <h3 class="cat-title">القنوات المصرية</h3>
+        <div class="channel-grid">
+            <div class="channel-card" onclick="playChan('https://example.com/on-ent.m3u8')">ON E</div>
+            <div class="channel-card" onclick="playChan('https://example.com/dmc.m3u8')">DMC</div>
+        </div>
+    </div>
+</div>
+
+<script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+<script>
+    var player = videojs('main-player');
+
+    function playChan(url) {
+        player.src({ src: url, type: 'application/x-mpegURL' });
+        player.play();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>
