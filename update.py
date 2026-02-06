@@ -1,48 +1,38 @@
 import requests
+import re
 
 def main():
-    # مصدر ضخم للقنوات
     url = "https://iptv-org.github.io/iptv/index.m3u"
     try:
         r = requests.get(url, timeout=20)
         lines = r.text.split('\n')
         
-        added_channels = ""
-        # الكلمات المفتاحية التي طلبتها
-        keywords = {
-            "sport": ["beIN", "Alkass"],
-            "yemen": ["Saeedah", "Hadramout", "Hawyah", "Yemen", "Aden"]
-        }
+        html_cards = ""
+        # القنوات التي تهمنا
+        targets = ["beIN", "Alkass", "Yemen", "Saeedah", "Shabab", "Masirah", "Hawyah"]
 
-        current_name = ""
+        name = ""
         for line in lines:
             if line.startswith("#EXTINF:"):
-                current_name = line.split(",")[-1].strip()
+                name = line.split(",")[-1].strip()
             elif line.startswith("http"):
-                url_link = line.strip()
-                category = ""
-                
-                if any(k.lower() in current_name.lower() for k in keywords["sport"]):
-                    category = "sport"
-                elif any(k.lower() in current_name.lower() for k in keywords["yemen"]):
-                    category = "yemen"
-                
-                if category:
-                    added_channels += f'<div class="channel" data-category="{category}" onclick="playChan(\'{url_link}\')"><span>{current_name}</span></div>\n'
+                if any(t.lower() in name.lower() for t in targets):
+                    # وضع القناة داخل تصميم المربع (Card)
+                    html_cards += f'<div class="chan-card" onclick="playChan(\'{line.strip()}\')"><span>{name}</span></div>\n'
 
         with open("index.html", "r", encoding="utf-8") as f:
             content = f.read()
 
-        import re
-        content = re.sub(r".*?", 
-                         f"\n{added_channels}\n", 
-                         content, flags=re.DOTALL)
+        # استبدال المحتوى بدقة بين العلامات
+        pattern = r".*?"
+        replacement = f"\n{html_cards}\n"
+        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
 
         with open("index.html", "w", encoding="utf-8") as f:
-            f.write(content)
-        print("Done!")
-    except:
-        print("Error")
+            f.write(new_content)
+        print("Success!")
+    except Exception as e:
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     main()
