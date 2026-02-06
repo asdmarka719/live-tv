@@ -3,70 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAFIQ PREMIUM TV</title>
+    <title>RAFIQ LIVE TV | رفيق تي في</title>
     <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
-    <link href="https://unpkg.com/@videojs/themes@1/dist/fantasy/index.css" rel="stylesheet">
+    <link href="https://unpkg.com/@videojs/themes@1/dist/city/index.css" rel="stylesheet">
     <style>
-        :root { --main-color: #ff0055; --bg-dark: #080a12; --card-bg: #151a2d; }
-        body { margin: 0; background-color: var(--bg-dark); color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        
-        /* الهيدر */
-        header { background: linear-gradient(45deg, #121625, var(--main-color)); padding: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        header h1 { margin: 0; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; }
-
-        /* منطقة المشغل الثابتة */
-        .player-box { position: sticky; top: 0; z-index: 999; background: #000; padding: 10px; border-bottom: 3px solid var(--main-color); }
-        .video-js { width: 100% !important; height: 210px !important; border-radius: 12px; overflow: hidden; }
-
-        /* التصنيفات */
-        .tabs { display: flex; overflow-x: auto; padding: 15px; gap: 10px; scrollbar-width: none; }
-        .tabs button { background: var(--card-bg); color: white; border: 1px solid #2d3550; padding: 10px 20px; border-radius: 25px; cursor: pointer; transition: 0.3s; white-space: nowrap; }
-        .tabs button.active { background: var(--main-color); border-color: var(--main-color); box-shadow: 0 0 15px var(--main-color); }
-
-        /* شبكة القنوات */
-        .channels-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; padding: 15px; }
-        .channel-card { background: var(--card-bg); border-radius: 15px; padding: 12px; text-align: center; cursor: pointer; border: 1px solid #1e2540; transition: 0.3s; position: relative; }
-        .channel-card:hover { transform: scale(1.05); border-color: var(--main-color); }
-        .channel-card .icon { font-size: 24px; margin-bottom: 8px; display: block; }
-        .channel-card span { font-size: 11px; font-weight: bold; line-height: 1.2; display: block; height: 26px; overflow: hidden; }
-        .live-dot { position: absolute; top: 8px; right: 8px; width: 6px; height: 6px; background: #00ff00; border-radius: 50%; box-shadow: 0 0 5px #00ff00; animation: blink 1s infinite; }
-        
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        :root { --primary: #00d2ff; --secondary: #3a7bd5; --bg: #0f0f0f; }
+        body { margin: 0; background: var(--bg); color: white; font-family: 'Cairo', sans-serif; }
+        header { background: linear-gradient(to right, var(--primary), var(--secondary)); padding: 15px; text-align: center; font-weight: bold; font-size: 1.4rem; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .player-container { position: sticky; top: 0; z-index: 1000; background: #000; padding: 5px; border-bottom: 2px solid var(--primary); }
+        .video-js { width: 100% !important; height: 230px !important; border-radius: 8px; }
+        .categories { display: flex; overflow-x: auto; gap: 10px; padding: 15px; scrollbar-width: none; }
+        .categories button { background: #222; color: #fff; border: 1px solid #444; padding: 8px 18px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: 0.3s; }
+        .categories button.active { background: var(--primary); border-color: var(--primary); font-weight: bold; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; padding: 15px; }
+        .channel-item { background: #1a1a1a; border-radius: 12px; padding: 12px; text-align: center; cursor: pointer; border: 1px solid #333; transition: 0.3s; position: relative; }
+        .channel-item:hover { transform: scale(1.05); border-color: var(--primary); box-shadow: 0 0 10px var(--primary); }
+        .channel-item span { font-size: 12px; font-weight: 600; display: block; height: 32px; overflow: hidden; margin-top: 5px; }
+        .live-label { position: absolute; top: 5px; right: 5px; background: red; color: white; font-size: 8px; padding: 2px 5px; border-radius: 4px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
         @media (min-width: 768px) { .video-js { height: 450px !important; } }
     </style>
 </head>
 <body>
 
-<header><h1>RAFIQ PREMIUM TV 💎</h1></header>
+<header>RAFIQ PREMIUM TV 💎</header>
 
-<div class="player-box">
-    <video id="main-player" class="video-js vjs-theme-fantasy vjs-big-play-centered" controls preload="auto"></video>
+<div class="player-container">
+    <video id="main-player" class="video-js vjs-theme-city vjs-big-play-centered" controls preload="auto"></video>
 </div>
 
-<div class="tabs">
-    <button class="active" onclick="filterCat('all')">الكل ✨</button>
-    <button onclick="filterCat('sport')">رياضة beIN ⚽</button>
-    <button onclick="filterCat('yemen')">اليمن السعيد 🇾🇪</button>
-    <button onclick="filterCat('news')">أخبار العالم 🌍</button>
-    <button onclick="filterCat('kids')">أطفال 🦄</button>
+<div class="categories" id="cat-bar">
+    <button class="active" onclick="filterData('all')">الكل ✨</button>
+    <button onclick="filterData('sport')">beIN & رياضة ⚽</button>
+    <button onclick="filterData('yemen')">اليمن 🇾🇪</button>
+    <button onclick="filterData('news')">أخبار 🌍</button>
 </div>
 
-<div class="channels-grid" id="main-grid">
+<div class="grid" id="channels-list">
     </div>
 
 <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
 <script>
-    var player = videojs('main-player', { fluid: true, playbackRates: [0.5, 1, 1.5, 2] });
+    var player = videojs('main-player', { fluid: true });
     function playChan(url) {
         player.src({ src: url, type: 'application/x-mpegURL' });
         player.play();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    function filterCat(cat) {
-        document.querySelectorAll('.channel-card').forEach(card => {
-            card.style.display = (cat === 'all' || card.dataset.category === cat) ? 'block' : 'none';
+    function filterData(cat) {
+        document.querySelectorAll('.channel-item').forEach(item => {
+            item.style.display = (cat === 'all' || item.dataset.category === cat) ? 'block' : 'none';
         });
-        document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.categories button').forEach(b => b.classList.remove('active'));
         event.target.classList.add('active');
     }
 </script>
