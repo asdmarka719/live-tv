@@ -1,31 +1,25 @@
 name: Update Live Channels
 on:
+  workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *' # يعمل مرة كل يوم عند منتصف الليل
-  workflow_dispatch: # زر للتشغيل اليدوي
-
+    - cron: '0 */6 * * *'
 jobs:
   update-links:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
+      - uses: actions/checkout@v3
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
-
-      - name: Install Requests
+          python-version: '3.x'
+      - name: Install dependencies
         run: pip install requests
-
-      - name: Run Update Script
+      - name: Run Script
         run: python update.py
-
-      - name: Commit and Push Changes
+      - name: Commit changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add index.html
-          git commit -m "Update channels list" || exit 0
+          git commit -m "Auto Update Channels" || exit 0
           git push
