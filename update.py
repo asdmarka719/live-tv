@@ -2,48 +2,42 @@ import requests
 import re
 
 def main():
-    url = "https://iptv-org.github.io/iptv/index.m3u"
+    source = "https://iptv-org.github.io/iptv/index.m3u"
     try:
-        r = requests.get(url, timeout=25)
+        # محاولة جلب القنوات مع وقت انتظار أطول
+        r = requests.get(source, timeout=40)
+        r.raise_for_status() # التأكد من عدم وجود خطأ في الطلب
         lines = r.text.split('\n')
         
-        output_html = ""
+        cards_html = ""
         name = ""
         for line in lines:
             if line.startswith("#EXTINF:"):
                 name = line.split(",")[-1].strip()
             elif line.startswith("http"):
-                url_link = line.strip()
-                category = "other"
-                
-                # فلاتر البحث الذكية
+                url = line.strip()
                 low_name = name.lower()
-                if any(s in low_name for s in ["bein", "sport", "alkass", "ssc"]): category = "sport"
-                elif any(y in low_name for y in ["yemen", "shabab", "mahr", "masirah", "saeedah", "hawyah", "hadramout"]): category = "yemen"
-                elif any(n in low_name for n in ["news", "aj", "arabia", "hadath", "sky"]): category = "news"
-
-                # إذا كانت القناة تهمنا، أضفها بالتنسيق الجديد
-                if category != "other":
-                    output_html += f'''
-                    <div class="channel-item" data-category="{category}" onclick="playChan('{url_link}')">
-                        <div class="live-label">LIVE</div>
-                        <span>📺</span>
+                # البحث عن beIN واليمن الإضافية
+                if any(k in low_name for k in ["bein", "sport", "saeedah", "hadramout"]):
+                    cards_html += f'''
+                    <div class="channel-card" onclick="playChan('{url}')">
                         <span>{name}</span>
                     </div>\n'''
 
         with open("index.html", "r", encoding="utf-8") as f:
             content = f.read()
 
-        # استبدال المنطقة المخصصة للقنوات
-        content = re.sub(r".*?", 
-                         f"\n{output_html}\n", 
-                         content, flags=re.DOTALL)
+        # استبدال القنوات الديناميكية فقط
+        new_content = re.sub(r".*?", 
+                             f"\n{cards_html}\n", 
+                             content, flags=re.DOTALL)
 
         with open("index.html", "w", encoding="utf-8") as f:
-            f.write(content)
-        print("تم التحديث بنجاح يا بطل!")
+            f.write(new_content)
+        print("Success: New channels added.")
     except Exception as e:
-        print(f"حدث خطأ: {e}")
+        # في حال الفشل، لا يفعل شيئاً ويترك القنوات الثابتة تعمل
+        print(f"Update failed, keeping static channels. Error: {e}")
 
 if __name__ == "__main__":
     main()
