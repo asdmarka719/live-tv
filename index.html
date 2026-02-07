@@ -3,81 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إمبراطورية رفيق TV | RAFIQ TV PRO</title>
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    <title>RAFIQ TV | البث المباشر المضمون</title>
     <style>
-        :root { --accent: #00f2fe; --bg: #050811; --card: #131927; }
-        body { margin: 0; background: var(--bg); color: white; font-family: sans-serif; }
-        header { background: #111; padding: 15px; text-align: center; border-bottom: 3px solid var(--accent); font-weight: bold; }
-        .player-container { position: sticky; top: 0; z-index: 1000; background: #000; padding: 5px; border-bottom: 1px solid var(--accent); }
-        video { width: 100%; max-height: 250px; border-radius: 10px; }
-        .tabs { display: flex; overflow-x: auto; gap: 10px; padding: 10px; background: #0a0f1d; sticky; top: 260px; z-index: 999; }
-        .tabs button { background: var(--card); color: white; border: 1px solid #333; padding: 8px 15px; border-radius: 20px; cursor: pointer; white-space: nowrap; }
-        .tabs button.active { background: var(--accent); color: #000; font-weight: bold; box-shadow: 0 0 10px var(--accent); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; padding: 15px; }
-        .card { background: var(--card); border-radius: 12px; padding: 12px; text-align: center; cursor: pointer; border: 1px solid #222; transition: 0.3s; }
-        .card:hover { border-color: var(--accent); transform: scale(1.05); }
-        .card i { font-size: 24px; display: block; margin-bottom: 5px; }
-        .card span { font-size: 11px; font-weight: bold; display: block; height: 30px; overflow: hidden; }
+        :root { --main: #00f2fe; --bg: #0b0f19; }
+        body { margin: 0; background: var(--bg); color: white; font-family: sans-serif; text-align: center; }
+        header { padding: 20px; background: #111; border-bottom: 3px solid var(--main); font-size: 22px; font-weight: bold; }
+        .player-wrap { position: sticky; top: 0; z-index: 100; background: #000; padding-bottom: 56.25%; height: 0; overflow: hidden; border-bottom: 2px solid var(--main); }
+        .player-wrap iframe, .player-wrap video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .tabs { display: flex; overflow-x: auto; gap: 10px; padding: 15px; background: #070a13; }
+        .tabs button { background: #1c2536; color: white; border: 1px solid #333; padding: 10px 20px; border-radius: 20px; cursor: pointer; white-space: nowrap; }
+        .tabs button.active { background: var(--main); color: #000; font-weight: bold; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 15px; padding: 20px; }
+        .card { background: #1c2536; border-radius: 15px; padding: 15px; cursor: pointer; border: 1px solid #2d3748; transition: 0.3s; }
+        .card:hover { border-color: var(--main); transform: scale(1.05); }
+        .card i { font-size: 30px; display: block; margin-bottom: 10px; }
+        .card span { font-size: 13px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<header>💎 إمبراطورية رفيق TV 💎</header>
+<header>💎 إمبراطورية رفيق TV | البث المعتمد 💎</header>
 
-<div class="player-container">
-    <video id="player" playsinline controls></video>
+<div class="player-wrap" id="video-container">
+    <iframe id="main-frame" src="https://www.youtube.com/embed/Mue60_w8_0w?autoplay=1" allowfullscreen></iframe>
 </div>
 
 <div class="tabs">
-    <button class="active" onclick="filter('all')">الكل ✨</button>
-    <button onclick="filter('sport')">beIN & رياضة ⚽</button>
+    <button class="active" onclick="filter('all')">الكل</button>
     <button onclick="filter('islam')">إسلامي 🌙</button>
     <button onclick="filter('yemen')">اليمن 🇾🇪</button>
-    <button onclick="filter('doc')">وثائقية 🐾</button>
-    <button onclick="filter('fight')">مصارعة 🥊</button>
+    <button onclick="filter('news')">أخبار 🌍</button>
 </div>
 
-<div class="grid" id="main-grid">
-    <div class="card" data-cat="islam" onclick="playChan('https://win.holol.com/live/quran/playlist.m3u8')"><i>🌙</i><span>القرآن الكريم (مكة)</span></div>
-    <div class="card" data-cat="islam" onclick="playChan('https://win.holol.com/live/sunnah/playlist.m3u8')"><i>🕌</i><span>السنة النبوية (المدينة)</span></div>
-    
-    <div class="card" data-cat="yemen" onclick="playChan('https://yemenshabab.com/live/index.m3u8')"><i>🇾🇪</i><span>يمن شباب</span></div>
-    <div class="card" data-cat="yemen" onclick="playChan('https://almahriah.net/live/master.m3u8')"><i>🇾🇪</i><span>المهرية</span></div>
-    <div class="card" data-cat="yemen" onclick="playChan('https://almasirah.net.ye/live/index.m3u8')"><i>🇾🇪</i><span>المسيرة</span></div>
+<div class="grid">
+    <div class="card" data-cat="islam" onclick="changeSrc('https://www.youtube.com/embed/Mue60_w8_0w')"><i>🌙</i><span>القرآن الكريم</span></div>
+    <div class="card" data-cat="islam" onclick="changeSrc('https://www.youtube.com/embed/mH_3v_Lp-6M')"><i>🕌</i><span>السنة النبوية</span></div>
 
-    <div class="card" data-cat="sport" onclick="playChan('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_1.m3u8')"><i>⚽</i><span>beIN Sports 1</span></div>
-    <div class="card" data-cat="sport" onclick="playChan('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_2.m3u8')"><i>⚽</i><span>beIN Sports 2</span></div>
-    <div class="card" data-cat="sport" onclick="playChan('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_3.m3u8')"><i>⚽</i><span>beIN Sports 3</span></div>
-    <div class="card" data-cat="sport" onclick="playChan('https://fancode.com/video/index.m3u8')"><i>🥊</i><span>مصارعة Slap</span></div>
-    
-    <div class="card" data-cat="doc" onclick="playChan('https://d2e1asnsl7br7b.cloudfront.net/779382103310/playlist.m3u8')"><i>🐾</i><span>National Geographic</span></div>
+    <div class="card" data-cat="yemen" onclick="changeSrc('https://yemenshabab.com/live/index.m3u8', 'video')"><i>🇾🇪</i><span>يمن شباب (HLS)</span></div>
+    <div class="card" data-cat="yemen" onclick="changeSrc('https://www.youtube.com/embed/nU_yWshY3oQ')"><i>🇾🇪</i><span>المهرية</span></div>
+    <div class="card" data-cat="yemen" onclick="changeSrc('https://www.youtube.com/embed/v79_pT0eF-o')"><i>🇾🇪</i><span>قناة السعيدة</span></div>
+
+    <div class="card" data-cat="news" onclick="changeSrc('https://www.youtube.com/embed/bNyUyrR0PHo')"><i>🌍</i><span>الجزيرة</span></div>
+    <div class="card" data-cat="news" onclick="changeSrc('https://www.youtube.com/embed/w_dwZ_LQRH0')"><i>🌍</i><span>العربية</span></div>
+    <div class="card" data-cat="news" onclick="changeSrc('https://www.youtube.com/embed/s9idWvO-N9o')"><i>🌍</i><span>سكاي نيوز</span></div>
 </div>
 
-<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
-    const video = document.getElementById('player');
-    const player = new Plyr(video);
-    const hls = new Hls();
-
-    function playChan(url) {
-        if (Hls.isSupported()) {
-            hls.loadSource(url);
-            hls.attachMedia(video);
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = url;
+    function changeSrc(url, type = 'iframe') {
+        const container = document.getElementById('video-container');
+        if (type === 'iframe') {
+            container.innerHTML = `<iframe src="${url}?autoplay=1" allowfullscreen allow="autoplay"></iframe>`;
+        } else {
+            container.innerHTML = `<video id="hls-player" controls autoplay style="width:100%; height:100%;"></video>`;
+            const video = document.getElementById('hls-player');
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(video);
+            }
         }
-        player.play();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function filter(cat) {
-        document.querySelectorAll('.card').forEach(card => {
-            card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
+        document.querySelectorAll('.card').forEach(c => {
+            c.style.display = (cat === 'all' || c.dataset.cat === cat) ? 'block' : 'none';
         });
-        document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
-        event.target.classList.add('active');
     }
 </script>
 </body>
