@@ -3,28 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAFIQ TV ULTIMATE | الإمبراطورية</title>
+    <title>إمبراطورية رفيق TV | RAFIQ TV PRO</title>
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
     <style>
         :root { --accent: #00f2fe; --bg: #050811; --card: #131927; }
         body { margin: 0; background: var(--bg); color: white; font-family: sans-serif; }
-        header { background: #111; padding: 15px; text-align: center; border-bottom: 3px solid var(--accent); font-weight: bold; font-size: 22px; }
-        .player-container { position: sticky; top: 0; z-index: 1000; background: #000; padding: 5px; }
+        header { background: #111; padding: 15px; text-align: center; border-bottom: 3px solid var(--accent); font-weight: bold; }
+        .player-container { position: sticky; top: 0; z-index: 1000; background: #000; padding: 5px; border-bottom: 1px solid var(--accent); }
         video { width: 100%; max-height: 250px; border-radius: 10px; }
-        .tabs { display: flex; overflow-x: auto; gap: 10px; padding: 10px; background: #0a0f1d; }
+        .tabs { display: flex; overflow-x: auto; gap: 10px; padding: 10px; background: #0a0f1d; sticky; top: 260px; z-index: 999; }
         .tabs button { background: var(--card); color: white; border: 1px solid #333; padding: 8px 15px; border-radius: 20px; cursor: pointer; white-space: nowrap; }
-        .tabs button.active { background: var(--accent); color: #000; font-weight: bold; }
+        .tabs button.active { background: var(--accent); color: #000; font-weight: bold; box-shadow: 0 0 10px var(--accent); }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; padding: 15px; }
         .card { background: var(--card); border-radius: 12px; padding: 12px; text-align: center; cursor: pointer; border: 1px solid #222; transition: 0.3s; }
         .card:hover { border-color: var(--accent); transform: scale(1.05); }
         .card i { font-size: 24px; display: block; margin-bottom: 5px; }
         .card span { font-size: 11px; font-weight: bold; display: block; height: 30px; overflow: hidden; }
-        #loading { text-align: center; padding: 20px; color: var(--accent); }
     </style>
 </head>
 <body>
 
-<header>💎 إمبراطورية رفيق TV (نايل سات + beIN) 💎</header>
+<header>💎 إمبراطورية رفيق TV 💎</header>
 
 <div class="player-container">
     <video id="player" playsinline controls></video>
@@ -35,70 +34,32 @@
     <button onclick="filter('sport')">beIN & رياضة ⚽</button>
     <button onclick="filter('islam')">إسلامي 🌙</button>
     <button onclick="filter('yemen')">اليمن 🇾🇪</button>
-    <button onclick="filter('doc')">وثائقي 🐾</button>
+    <button onclick="filter('doc')">وثائقية 🐾</button>
+    <button onclick="filter('fight')">مصارعة 🥊</button>
 </div>
 
-<div id="loading">جاري جلب قنوات نايل سات و beIN...</div>
 <div class="grid" id="main-grid">
-    </div>
+    <div class="card" data-cat="islam" onclick="playChan('https://win.holol.com/live/quran/playlist.m3u8')"><i>🌙</i><span>القرآن الكريم (مكة)</span></div>
+    <div class="card" data-cat="islam" onclick="playChan('https://win.holol.com/live/sunnah/playlist.m3u8')"><i>🕌</i><span>السنة النبوية (المدينة)</span></div>
+    
+    <div class="card" data-cat="yemen" onclick="playChan('https://yemenshabab.com/live/index.m3u8')"><i>🇾🇪</i><span>يمن شباب</span></div>
+    <div class="card" data-cat="yemen" onclick="playChan('https://almahriah.net/live/master.m3u8')"><i>🇾🇪</i><span>المهرية</span></div>
+    <div class="card" data-cat="yemen" onclick="playChan('https://almasirah.net.ye/live/index.m3u8')"><i>🇾🇪</i><span>المسيرة</span></div>
+
+    <div class="card" data-cat="sport" onclick="playChan('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_1.m3u8')"><i>⚽</i><span>beIN Sports 1</span></div>
+    <div class="card" data-cat="sport" onclick="playChan('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_2.m3u8')"><i>⚽</i><span>beIN Sports 2</span></div>
+    <div class="card" data-cat="sport" onclick="playChan('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_3.m3u8')"><i>⚽</i><span>beIN Sports 3</span></div>
+    <div class="card" data-cat="sport" onclick="playChan('https://fancode.com/video/index.m3u8')"><i>🥊</i><span>مصارعة Slap</span></div>
+    
+    <div class="card" data-cat="doc" onclick="playChan('https://d2e1asnsl7br7b.cloudfront.net/779382103310/playlist.m3u8')"><i>🐾</i><span>National Geographic</span></div>
+</div>
 
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
 <script>
     const video = document.getElementById('player');
     const player = new Plyr(video);
     const hls = new Hls();
-    const grid = document.getElementById('main-grid');
-    const loading = document.getElementById('loading');
-
-    // مصادر قنوات نايل سات و beIN المحدثة
-    const playlistUrl = 'https://raw.githubusercontent.com/mohamed-attya/IPTV-Free-Arabic/master/Arabic.m3u';
-
-    async function loadChannels() {
-        try {
-            const response = await fetch(playlistUrl);
-            const data = await response.text();
-            const lines = data.split('\n');
-            let channels = [];
-            let currentName = '';
-
-            lines.forEach(line => {
-                if (line.startsWith('#EXTINF:')) {
-                    currentName = line.split(',')[1] || 'قناة غير معروفة';
-                } else if (line.startsWith('http')) {
-                    let url = line.strip ? line.strip() : line.trim();
-                    let low = currentName.toLowerCase();
-                    let cat = 'other';
-                    
-                    if (low.includes('bein') || low.includes('sport') || low.includes('alkass')) cat = 'sport';
-                    else if (low.includes('quran') || low.includes('islam') || low.includes('قرآن')) cat = 'islam';
-                    else if (low.includes('yemen') || low.includes('shabab')) cat = 'yemen';
-                    else if (low.includes('national') || low.includes('nat geo')) cat = 'doc';
-
-                    channels.push({ name: currentName, url: url, cat: cat });
-                }
-            });
-
-            renderChannels(channels);
-            loading.style.display = 'none';
-        } catch (error) {
-            loading.innerText = 'فشل جلب القنوات، يرجى المحاولة لاحقاً';
-        }
-    }
-
-    function renderChannels(list) {
-        grid.innerHTML = '';
-        list.forEach(ch => {
-            const icon = ch.cat === 'sport' ? '⚽' : ch.cat === 'islam' ? '🌙' : ch.cat === 'yemen' ? '🇾🇪' : '📺';
-            const html = `
-                <div class="card" data-cat="${ch.cat}" onclick="playChan('${ch.url}')">
-                    <i>${icon}</i>
-                    <span>${ch.name}</span>
-                </div>`;
-            grid.insertAdjacentHTML('beforeend', html);
-        });
-    }
 
     function playChan(url) {
         if (Hls.isSupported()) {
@@ -118,8 +79,6 @@
         document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
         event.target.classList.add('active');
     }
-
-    loadChannels();
 </script>
 </body>
 </html>
