@@ -3,41 +3,37 @@ import re
 
 def main():
     try:
-        # مصدر القنوات (سنستخدم مصدرين لضمان النجاح)
-        sources = ["https://iptv-org.github.io/iptv/index.m3u", "https://raw.githubusercontent.com/iptv-org/iptv/master/streams/ar.m3u"]
-        all_cards = ""
+        # مصادر قوية للقنوات
+        source = "https://iptv-org.github.io/iptv/index.m3u"
+        r = requests.get(source, timeout=30)
+        lines = r.text.split('\n')
         
-        for s in sources:
-            try:
-                r = requests.get(s, timeout=20)
-                lines = r.text.split('\n')
-                name = ""
-                for line in lines:
-                    if line.startswith("#EXTINF:"):
-                        name = line.split(",")[-1].strip()
-                    elif line.startswith("http"):
-                        url = line.strip()
-                        # فلتر القنوات الرياضية والبديلة
-                        if any(x in name.lower() for x in ["bein", "sport", "alkass", "ssc", "saeedah"]):
-                            all_cards += f'<div class="card" onclick="play(\'{url}\')"><div class="badge">Live</div><span>{name}</span></div>\n'
-            except: continue
+        cards = ""
+        name = ""
+        for line in lines:
+            if line.startswith("#EXTINF:"):
+                name = line.split(",")[-1].strip()
+            elif line.startswith("http"):
+                url = line.strip()
+                # جلب beIN و Alkass والسعيدة فقط لعدم إثقال الصفحة
+                if any(x in name.lower() for x in ["bein", "alkass", "ssc", "saeedah", "hawyah"]):
+                    cards += f'<div class="card" onclick="play(\'{url}\')"><div class="badge">Auto</div><span>{name}</span></div>\n'
 
-        if not all_cards: raise Exception("No channels found")
+        if not cards: return # إذا لم يجد شيئاً لا يغير الصفحة
 
-        # التحديث الآمن
         with open("index.html", "r", encoding="utf-8") as f:
-            html = f.read()
-        
-        new_html = re.sub(r".*?", 
-                          f"\n{all_cards}\n", 
-                          html, flags=re.DOTALL)
-        
-        with open("index.html", "w", encoding="utf-8") as f:
-            f.write(new_html)
-        print("Updated successfully!")
+            content = f.read()
 
+        # حقن البطاقات في المكان المخصص
+        new_content = re.sub(r".*?", 
+                             f"\n{cards}\n", 
+                             content, flags=re.DOTALL)
+
+        with open("index.html", "w", encoding="utf-8") as f:
+            f.write(new_content)
+        print("Success!")
     except Exception as e:
-        print(f"Failed: {e}")
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     main()
