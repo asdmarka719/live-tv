@@ -3,70 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إمبراطورية رفيق TV 💎</title>
-    <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap" rel="stylesheet">
+    <title>إمبراطورية رفيق TV | RAFIQ TV PRO</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
     <style>
-        :root { --main: #00f2fe; --bg: #050811; --card: #131927; }
-        body { margin: 0; background: var(--bg); color: white; font-family: 'Cairo', sans-serif; }
-        header { background: linear-gradient(135deg, #0f172a, #1e293b); padding: 20px; text-align: center; border-bottom: 3px solid var(--main); box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
-        .player-area { position: sticky; top: 0; z-index: 999; background: #000; padding: 10px; border-bottom: 1px solid var(--main); }
-        .video-js { width: 100% !important; height: 220px !important; border-radius: 15px; }
-        .nav-tabs { display: flex; overflow-x: auto; gap: 10px; padding: 15px; scrollbar-width: none; background: #0a0f1d; }
-        .nav-tabs button { background: var(--card); color: #fff; border: 1px solid #2d3748; padding: 10px 20px; border-radius: 30px; cursor: pointer; white-space: nowrap; transition: 0.3s; }
-        .nav-tabs button.active { background: var(--main); color: #000; font-weight: bold; border-color: var(--main); box-shadow: 0 0 15px var(--main); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px; padding: 20px; }
-        .chan-card { background: var(--card); border-radius: 18px; padding: 15px; text-align: center; cursor: pointer; border: 1px solid #1e293b; transition: 0.4s; position: relative; overflow: hidden; }
-        .chan-card:hover { transform: translateY(-8px); border-color: var(--main); box-shadow: 0 10px 20px rgba(0,242,254,0.2); }
-        .chan-card i { font-size: 28px; display: block; margin-bottom: 10px; }
-        .chan-card span { font-size: 12px; font-weight: bold; line-height: 1.4; display: block; height: 35px; }
-        .live-dot { position: absolute; top: 10px; right: 10px; width: 8px; height: 8px; background: #ff0055; border-radius: 50%; animation: pulse 1s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-        @media (min-width: 768px) { .video-js { height: 450px !important; } }
+        :root { --main: #00d2ff; --bg: #0f172a; --card: #1e293b; }
+        body { margin: 0; background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; }
+        header { background: linear-gradient(135deg, #1e293b, var(--main)); padding: 20px; text-align: center; font-size: 24px; font-weight: bold; border-bottom: 3px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .player-box { position: sticky; top: 0; z-index: 1000; background: #000; padding: 10px; border-bottom: 2px solid var(--main); }
+        .tabs { display: flex; overflow-x: auto; gap: 10px; padding: 15px; background: #0a0f1d; }
+        .tabs button { background: var(--card); color: #fff; border: 1px solid #334155; padding: 10px 20px; border-radius: 25px; cursor: pointer; white-space: nowrap; transition: 0.3s; }
+        .tabs button.active { background: var(--main); color: #000; font-weight: bold; box-shadow: 0 0 10px var(--main); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px; padding: 15px; }
+        .card { background: var(--card); border-radius: 15px; padding: 15px; text-align: center; border: 1px solid #334155; cursor: pointer; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--main); box-shadow: 0 5px 15px rgba(0,210,255,0.3); }
+        .card i { font-size: 25px; display: block; margin-bottom: 10px; }
+        .card span { font-size: 12px; font-weight: bold; }
+        #search { width: 90%; margin: 10px 5%; padding: 12px; border-radius: 20px; border: none; background: #334155; color: white; text-align: center; }
     </style>
 </head>
 <body>
 
-<header>✨ إمبراطورية رفيق TV ✨</header>
+<header>🚀 إمبراطورية رفيق TV 🚀</header>
 
-<div class="player-area">
-    <video id="main-player" class="video-js vjs-big-play-centered" controls preload="auto"></video>
+<div class="player-box">
+    <video id="player" playsinline controls data-poster="https://bit.ly/3yLhZfL"></video>
 </div>
 
-<div class="nav-tabs">
-    <button class="active" onclick="showCat('all', this)">الكل</button>
-    <button onclick="showCat('islam', this)">🌙 إسلامي</button>
-    <button onclick="showCat('yemen', this)">🇾🇪 اليمن</button>
-    <button onclick="showCat('sport', this)">⚽ رياضة</button>
-    <button onclick="showCat('doc', this)">🐾 وثائقي</button>
-    <button onclick="showCat('movie', this)">🎬 أفلام/مسرح</button>
-    <button onclick="showCat('fight', this)">🥊 مصارعة</button>
+<input type="text" id="search" placeholder="🔍 ابحث عن القناة هنا..." onkeyup="searchChan()">
+
+<div class="tabs">
+    <button class="active" onclick="filterCat('all', this)">الكل</button>
+    <button onclick="filterCat('islam', this)">🌙 إسلامي</button>
+    <button onclick="filterCat('yemen', this)">🇾🇪 اليمن</button>
+    <button onclick="filterCat('sport', this)">⚽ رياضة/مصارعة</button>
+    <button onclick="filterCat('doc', this)">🐾 وثائقي</button>
+    <button onclick="filterCat('movie', this)">🎬 أفلام/مسرح</button>
 </div>
 
-<div class="grid" id="channels-container">
-    <div class="chan-card" data-cat="islam" onclick="play('https://win.holol.com/live/quran/playlist.m3u8')"><div class="live-dot"></div><i>🕋</i><span>القرآن الكريم</span></div>
-    <div class="chan-card" data-cat="islam" onclick="play('https://win.holol.com/live/sunnah/playlist.m3u8')"><div class="live-dot"></div><i>🕌</i><span>السنة النبوية</span></div>
-    <div class="chan-card" data-cat="yemen" onclick="play('https://yemenshabab.com/live/index.m3u8')"><div class="live-dot"></div><i>🇾🇪</i><span>يمن شباب</span></div>
-    <div class="chan-card" data-cat="yemen" onclick="play('https://almahriah.net/live/master.m3u8')"><div class="live-dot"></div><i>🇾🇪</i><span>المهرية</span></div>
-    <div class="chan-card" data-cat="yemen" onclick="play('https://almasirah.net.ye/live/index.m3u8')"><div class="live-dot"></div><i>🇾🇪</i><span>المسيرة</span></div>
-    <div class="chan-card" data-cat="yemen" onclick="play('https://shabwah-tv.net/live/index.m3u8')"><i>🇾🇪</i><span>قناة شبوة</span></div>
+<div class="grid" id="main-grid">
+    <div class="card" data-cat="islam" onclick="playHLS('https://win.holol.com/live/quran/playlist.m3u8')"><i>🌙</i><span>القرآن الكريم</span></div>
+    <div class="card" data-cat="islam" onclick="playHLS('https://win.holol.com/live/sunnah/playlist.m3u8')"><i>🕋</i><span>السنة النبوية</span></div>
+    <div class="card" data-cat="yemen" onclick="playHLS('https://yemenshabab.com/live/index.m3u8')"><i>🇾🇪</i><span>يمن شباب</span></div>
+    <div class="card" data-cat="yemen" onclick="playHLS('https://almahriah.net/live/master.m3u8')"><i>🇾🇪</i><span>المهرية</span></div>
+    <div class="card" data-cat="sport" onclick="playHLS('https://fancode.com/video/index.m3u8')"><i>🥊</i><span>مصارعة Slap</span></div>
     
     </div>
 
-<script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
-    var player = videojs('main-player', { fluid: true });
-    function play(url) {
-        player.src({ src: url, type: 'application/x-mpegURL' });
+    const video = document.getElementById('player');
+    const player = new Plyr(video);
+    const hls = new Hls();
+
+    function playHLS(url) {
+        if (Hls.isSupported()) {
+            hls.loadSource(url);
+            hls.attachMedia(video);
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = url;
+        }
         player.play();
-        window.scrollTo({ top: 80, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    function showCat(cat, btn) {
-        document.querySelectorAll('.chan-card').forEach(c => {
+
+    function filterCat(cat, btn) {
+        document.querySelectorAll('.card').forEach(c => {
             c.style.display = (cat === 'all' || c.dataset.cat === cat) ? 'block' : 'none';
         });
-        document.querySelectorAll('.nav-tabs button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
+    }
+
+    function searchChan() {
+        let val = document.getElementById('search').value.toLowerCase();
+        document.querySelectorAll('.card').forEach(c => {
+            c.style.display = c.innerText.toLowerCase().includes(val) ? 'block' : 'none';
+        });
     }
 </script>
 </body>
