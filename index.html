@@ -3,46 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAFIQ TV ULTIMATE</title>
+    <title>RAFIQ PREMIUM TV 💎</title>
     <link href="https://vjs.zencdn.net/7.20.3/video-js.css" rel="stylesheet" />
     <style>
         :root { --accent: #00f2fe; --bg: #050505; --card: #121212; }
-        body { margin: 0; background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; }
-        header { background: #111; padding: 20px; text-align: center; border-bottom: 2px solid var(--accent); font-size: 24px; font-weight: bold; color: var(--accent); text-shadow: 0 0 10px var(--accent); }
-        .player-container { position: sticky; top: 0; z-index: 1000; background: #000; padding: 10px; }
-        .video-js { width: 100% !important; height: 230px !important; border-radius: 15px; box-shadow: 0 0 20px rgba(0,242,254,0.2); }
-        .section-title { padding: 15px 15px 5px; font-size: 18px; color: #aaa; border-right: 4px solid var(--accent); margin: 15px; }
+        body { margin: 0; background: var(--bg); color: white; font-family: sans-serif; }
+        header { background: #111; padding: 20px; text-align: center; border-bottom: 2px solid var(--accent); font-size: 22px; color: var(--accent); font-weight: bold; }
+        .player-box { position: sticky; top: 0; z-index: 1000; background: #000; padding: 10px; border-bottom: 1px solid #333; }
+        .video-js { width: 100% !important; height: 230px !important; border-radius: 15px; }
+        .section-title { padding: 15px; font-size: 18px; color: #888; border-right: 4px solid var(--accent); margin-top: 10px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px; padding: 15px; }
         .card { background: var(--card); border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #222; cursor: pointer; transition: 0.3s; }
-        .card:hover { border-color: var(--accent); transform: scale(1.05); background: #1a1a1a; }
+        .card:hover { border-color: var(--accent); transform: scale(1.05); }
         .card span { display: block; font-size: 12px; margin-top: 8px; font-weight: bold; }
         .badge { background: #ff0055; font-size: 9px; padding: 2px 6px; border-radius: 4px; float: left; }
     </style>
 </head>
 <body>
 
-<header>RAFIQ TV PREMIUM 💎</header>
+<header>RAFIQ TV ULTIMATE 🚀</header>
 
-<div class="player-container">
-    <video id="vid-player" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto"></video>
+<div class="player-box">
+    <video id="main-player" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto"></video>
 </div>
 
-<div class="section-title">قنوات اليمن السعيد (بث دائم) 🇾🇪</div>
+<div class="section-title">قنوات اليمن (بث ثابت) 🇾🇪</div>
 <div class="grid">
-    <div class="card" onclick="play('https://yemenshabab.com/live/index.m3u8')"><div class="badge">HQ</div><span>يمن شباب</span></div>
-    <div class="card" onclick="play('https://almahriah.net/live/master.m3u8')"><div class="badge">HQ</div><span>المهرية</span></div>
-    <div class="card" onclick="play('https://almasirah.net.ye/live/index.m3u8')"><div class="badge">HQ</div><span>المسيرة</span></div>
-    <div class="card" onclick="play('https://shabwah-tv.net/live/index.m3u8')"><div class="badge">HQ</div><span>شبوة</span></div>
+    <div class="card" onclick="play('https://yemenshabab.com/live/index.m3u8')"><div class="badge">Live</div><span>يمن شباب</span></div>
+    <div class="card" onclick="play('https://almahriah.net/live/master.m3u8')"><div class="badge">Live</div><span>المهرية</span></div>
+    <div class="card" onclick="play('https://almasirah.net.ye/live/index.m3u8')"><div class="badge">Live</div><span>المسيرة</span></div>
+    <div class="card" onclick="play('https://shabwah-tv.net/live/index.m3u8')"><div class="badge">Live</div><span>قناة شبوة</span></div>
 </div>
 
-<div class="section-title">قنوات beIN والرياضة (تحديث تلقائي) ⚽</div>
+<div class="section-title">قنوات رياضية وعالمية ⚽</div>
 <div class="grid" id="auto-channels">
-    <div style="grid-column: 1/-1; text-align: center; color: #444;">جاري البحث عن روابط رياضية...</div>
+    <div style="grid-column: 1/-1; text-align: center; color: #444;">يتم الآن تحديث الروابط الرياضية...</div>
     </div>
 
 <script src="https://vjs.zencdn.net/7.20.3/video.min.js"></script>
 <script>
-    var player = videojs('vid-player', { fluid: true });
+    var player = videojs('main-player', { fluid: true });
     function play(url) {
         player.src({ src: url, type: 'application/x-mpegURL' });
         player.play();
