@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إمبراطورية رفيق TV | VIP CINEMA</title>
+    <title>إمبراطورية رفيق TV | الشاملة 💎</title>
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
     <style>
         :root { --main: #00f2fe; --bg: #050811; --card: #131927; --vip: #ff0055; }
-        body { margin: 0; background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; }
+        body { margin: 0; background: var(--bg); color: white; font-family: sans-serif; }
         header { padding: 15px; text-align: center; background: #111; border-bottom: 2px solid var(--main); font-weight: bold; position: sticky; top: 0; z-index: 2000; }
         .video-box { position: sticky; top: 55px; z-index: 1000; background: #000; border-bottom: 1px solid var(--main); }
-        video { width: 100%; max-height: 230px; border-radius: 0 0 10px 10px; }
+        video { width: 100%; max-height: 230px; }
         .search-area { padding: 12px; background: #0a111f; }
-        #search { width: 92%; padding: 12px; border-radius: 25px; border: 1px solid var(--main); background: #1e293b; color: white; text-align: center; margin: 0 4%; }
+        #search { width: 90%; padding: 12px; border-radius: 25px; border: 1px solid var(--main); background: #1e293b; color: white; text-align: center; margin: 0 5%; }
         .tabs { display: flex; overflow-x: auto; gap: 8px; padding: 15px; background: var(--bg); scrollbar-width: none; }
-        .tabs button { background: var(--card); color: white; border: 1px solid #333; padding: 10px 20px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: 0.3s; }
-        .tabs button.active { background: var(--main); color: #000; font-weight: bold; box-shadow: 0 0 15px var(--main); }
-        .tabs button.vip-tab { border-color: var(--vip); color: var(--vip); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; padding: 15px; }
-        .card { background: var(--card); border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #222; cursor: pointer; transition: 0.3s; position: relative; }
-        .card:hover { border-color: var(--main); transform: translateY(-5px); }
+        .tabs button { background: var(--card); color: white; border: 1px solid #333; padding: 10px 20px; border-radius: 20px; cursor: pointer; white-space: nowrap; }
+        .tabs button.active { background: var(--main); color: #000; font-weight: bold; }
+        .tabs button.vip-btn { border-color: var(--vip); color: var(--vip); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); gap: 12px; padding: 15px; }
+        .card { background: var(--card); border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #222; cursor: pointer; position: relative; transition: 0.3s; }
+        .card:hover { border-color: var(--main); transform: scale(1.05); }
         .card i { font-size: 26px; display: block; margin-bottom: 8px; }
         .card span { font-size: 11px; font-weight: bold; display: block; height: 28px; overflow: hidden; }
         .badge { position: absolute; top: 5px; right: 5px; background: var(--vip); color: white; font-size: 8px; padding: 2px 6px; border-radius: 5px; font-weight: bold; }
@@ -28,25 +28,25 @@
 </head>
 <body>
 
-<header>💎 RAFIQ TV - شاهد & نتفلكس 💎</header>
+<header>💎 RAFIQ TV - 970+ CH & VIP 💎</header>
 
 <div class="video-box">
     <video id="player" playsinline controls></video>
 </div>
 
 <div class="search-area">
-    <input type="text" id="search" placeholder="🔍 ابحث عن (شاهد، نتفلكس، قناة...)" onkeyup="searchFun()">
+    <input type="text" id="search" placeholder="🔍 ابحث عن أي قناة أو فيلم..." onkeyup="searchFun()">
 </div>
 
 <div class="tabs">
     <button class="active" onclick="filter('all', this)">الكل ✨</button>
-    <button class="vip-tab" onclick="filter('vip', this)">SHAHID & Netflix 🎬</button>
+    <button class="vip-btn" onclick="filter('vip', this)">SHAHID & Netflix 🍿</button>
     <button onclick="filter('sport', this)">الرياضة ⚽</button>
     <button onclick="filter('yemen', this)">اليمن 🇾🇪</button>
     <button onclick="filter('nile', this)">نايل سات 🛰️</button>
 </div>
 
-<div id="status">جاري الاتصال بالسيرفرات المفتوحة...</div>
+<div id="status">جاري الاتصال بالسيرفرات المباشرة...</div>
 <div class="grid" id="main-grid"></div>
 
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
@@ -58,10 +58,10 @@
     const grid = document.getElementById('main-grid');
     const status = document.getElementById('status');
 
-    // مصادر القنوات (نايل سات + beIN + أفلام)
+    // رابط المصدر الموحد (يحتوي على نايل سات وشاهد و beIN)
     const m3uSource = 'https://raw.githubusercontent.com/mohamed-attya/IPTV-Free-Arabic/master/Arabic.m3u';
 
-    async function loadAll() {
+    async function loadData() {
         try {
             const resp = await fetch(m3uSource);
             const data = await resp.text();
@@ -77,10 +77,9 @@
                     let low = name.toLowerCase();
                     let cat = 'nile';
 
-                    if (low.includes('shahid') || low.includes('netflix') || low.includes('vip')) cat = 'vip';
-                    else if (low.includes('bein') || low.includes('sport') || low.includes('alkass')) cat = 'sport';
+                    if (low.includes('shahid') || low.includes('netflix') || low.includes('vip') || low.includes('movie')) cat = 'vip';
+                    else if (low.includes('bein') || low.includes('sport') || low.includes('ssc')) cat = 'sport';
                     else if (low.includes('yemen') || low.includes('shabab')) cat = 'yemen';
-                    else if (low.includes('movie') || low.includes('drama') || low.includes('cinema')) cat = 'vip';
 
                     channels.push({ name, url, cat });
                 }
@@ -89,32 +88,41 @@
             render(channels);
             status.style.display = 'none';
         } catch (e) {
-            status.innerText = '⚠️ السيرفر يحتاج تحديث، جاري استخدام الروابط الاحتياطية';
+            status.innerText = '⚠️ السيرفر مشغول، يرجى المحاولة لاحقاً';
         }
     }
 
     function render(list) {
-        grid.innerHTML = list.map(ch => `
-            <div class="card" data-cat="${ch.cat}" onclick="play('${ch.url}')">
-                ${ch.cat === 'vip' ? '<div class="badge">VIP</div>' : ''}
-                <i>${getIcon(ch.cat)}</i>
-                <span>${ch.name}</span>
-            </div>
-        `).join('');
-    }
+        grid.innerHTML = '';
+        list.forEach(ch => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.dataset.cat = ch.cat;
+            card.onclick = () => play(ch.url);
+            
+            let icon = '🛰️';
+            if(ch.cat === 'vip') icon = '🍿';
+            else if(ch.cat === 'sport') icon = '⚽';
+            else if(ch.cat === 'yemen') icon = '🇾🇪';
 
-    function getIcon(cat) {
-        return cat === 'vip' ? '🍿' : cat === 'sport' ? '⚽' : cat === 'yemen' ? '🇾🇪' : '🛰️';
+            card.innerHTML = `
+                ${ch.cat === 'vip' ? '<div class="badge">VIP</div>' : ''}
+                <i>${icon}</i>
+                <span>${ch.name}</span>
+            `;
+            grid.appendChild(card);
+        });
     }
 
     function play(url) {
         if (Hls.isSupported()) {
             hls.loadSource(url);
             hls.attachMedia(video);
-        } else {
+            hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
             video.src = url;
+            video.play();
         }
-        player.play();
         window.scrollTo({ top: 55, behavior: 'smooth' });
     }
 
@@ -133,64 +141,7 @@
         });
     }
 
-    loadAll();
+    loadData();
 </script>
 </body>
 </html>
-                else if (low.includes('yemen') || low.includes('shabab')) cat = 'yemen';
-                
-                result.push({ name, url, cat });
-            }
-        }
-        return result;
-    }
-
-    function render(list) {
-        grid.innerHTML = list.map(ch => `
-            <div class="card" data-cat="${ch.cat}" onclick="play('${ch.url}')">
-                ${ch.cat === 'vip' ? '<div class="badge">VIP</div>' : ''}
-                <i>${getIcon(ch.cat)}</i>
-                <span>${ch.name}</span>
-            </div>
-        `).join('');
-    }
-
-    function getIcon(cat) {
-        if (cat === 'vip') return '💎';
-        if (cat === 'movie') return '🎬';
-        if (cat === 'sport') return '⚽';
-        if (cat === 'yemen') return '🇾🇪';
-        return '🛰️';
-    }
-
-    function play(url) {
-        if (Hls.isSupported()) {
-            hls.loadSource(url);
-            hls.attachMedia(video);
-        } else {
-            video.src = url;
-        }
-        player.play();
-        window.scrollTo({ top: 55, behavior: 'smooth' });
-    }
-
-    function filter(cat, btn) {
-        document.querySelectorAll('.card').forEach(c => {
-            c.style.display = (cat === 'all' || c.dataset.cat === cat) ? 'block' : 'none';
-        });
-        document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-    }
-
-    function search() {
-        let val = document.getElementById('searchBar').value.toLowerCase();
-        document.querySelectorAll('.card').forEach(c => {
-            c.style.display = c.innerText.toLowerCase().includes(val) ? 'block' : 'none';
-        });
-    }
-
-    init();
-</script>
-</body>
-</html>
-
