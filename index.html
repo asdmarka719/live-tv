@@ -3,67 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إمبراطورية رفيق TV | النسخة المعتمدة 💎</title>
+    <title>RAFIQ TV ULTIMATE 💎 900+ CH</title>
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
     <style>
         :root { --main: #00f2fe; --bg: #050811; --card: #131927; }
-        body { margin: 0; background: var(--bg); color: white; font-family: sans-serif; }
-        header { padding: 15px; text-align: center; background: #111; border-bottom: 3px solid var(--main); font-weight: bold; font-size: 20px; }
-        .video-container { position: sticky; top: 0; z-index: 1000; background: #000; width: 100%; aspect-ratio: 16/9; border-bottom: 2px solid var(--main); }
-        iframe, video { width: 100%; height: 100%; border: none; }
-        .nav-bar { display: flex; overflow-x: auto; gap: 10px; padding: 12px; background: #0a0f1d; }
-        .nav-bar button { background: var(--card); color: white; border: 1px solid #333; padding: 10px 18px; border-radius: 25px; cursor: pointer; white-space: nowrap; transition: 0.3s; }
-        .nav-bar button.active { background: var(--main); color: #000; font-weight: bold; box-shadow: 0 0 10px var(--main); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 15px; padding: 15px; }
-        .card { background: var(--card); border-radius: 15px; padding: 15px; text-align: center; border: 1px solid #222; cursor: pointer; }
+        body { margin: 0; background: var(--bg); color: white; font-family: sans-serif; overflow-x: hidden; }
+        header { padding: 15px; text-align: center; background: #111; border-bottom: 2px solid var(--main); font-weight: bold; position: sticky; top: 0; z-index: 2000; }
+        .player-fixed { position: sticky; top: 55px; z-index: 1000; background: #000; border-bottom: 1px solid var(--main); }
+        video { width: 100%; max-height: 250px; }
+        .search-area { padding: 10px; background: #0a0f1d; }
+        #searchBar { width: 96%; padding: 12px; border-radius: 25px; border: none; background: #1e293b; color: white; text-align: center; font-size: 16px; margin: 0 2%; }
+        .tabs { display: flex; overflow-x: auto; gap: 10px; padding: 15px; background: #050811; scrollbar-width: none; }
+        .tabs button { background: var(--card); color: white; border: 1px solid #333; padding: 8px 20px; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: 0.3s; }
+        .tabs button.active { background: var(--main); color: #000; font-weight: bold; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; padding: 15px; min-height: 400px; }
+        .card { background: var(--card); border-radius: 12px; padding: 12px; text-align: center; border: 1px solid #222; cursor: pointer; transition: 0.3s; animation: fadeIn 0.5s ease; }
         .card:hover { border-color: var(--main); transform: scale(1.05); }
-        .card i { font-size: 28px; display: block; margin-bottom: 8px; }
-        .card span { font-size: 12px; font-weight: bold; display: block; }
+        .card i { font-size: 24px; display: block; margin-bottom: 5px; }
+        .card span { font-size: 10px; font-weight: bold; display: block; height: 28px; overflow: hidden; line-height: 1.2; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        #loader { text-align: center; padding: 20px; color: var(--main); font-weight: bold; }
     </style>
 </head>
 <body>
 
-<header>🚀 RAFIQ TV PRO - البث المضمون 🚀</header>
+<header>💎 إمبراطورية رفيق TV (970+ قناة) 💎</header>
 
-<div class="video-container" id="player-box">
-    <iframe id="main-iframe" src="https://www.youtube.com/embed/Mue60_w8_0w?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+<div class="player-fixed">
+    <video id="player" playsinline controls></video>
 </div>
 
-<div class="nav-bar">
-    <button class="active" onclick="filter('all')">الكل ✨</button>
-    <button onclick="filter('islam')">إسلامي 🌙</button>
-    <button onclick="filter('yemen')">اليمن 🇾🇪</button>
-    <button onclick="filter('sport')">رياضة ⚽</button>
-    <button onclick="filter('news')">أخبار 🌍</button>
+<div class="search-area">
+    <input type="text" id="searchBar" placeholder="🔍 ابحث عن أي قناة (beIN, MBC, اليمن...)" onkeyup="search()">
 </div>
 
-<div class="grid" id="main-grid">
-    <div class="card" data-cat="islam" onclick="change('https://www.youtube.com/embed/Mue60_w8_0w')"><i>🌙</i><span>القرآن الكريم</span></div>
-    <div class="card" data-cat="islam" onclick="change('https://www.youtube.com/embed/mH_3v_Lp-6M')"><i>🕌</i><span>السنة النبوية</span></div>
-    
-    <div class="card" data-cat="yemen" onclick="change('https://www.youtube.com/embed/nU_yWshY3oQ')"><i>🇾🇪</i><span>قناة المهرية</span></div>
-    <div class="card" data-cat="yemen" onclick="change('https://www.youtube.com/embed/v79_pT0eF-o')"><i>🇾🇪</i><span>قناة السعيدة</span></div>
-    <div class="card" data-cat="yemen" onclick="change('https://www.youtube.com/embed/vYm6E6A2178')"><i>🇾🇪</i><span>اليمن الرسمية</span></div>
-
-    <div class="card" data-cat="news" onclick="change('https://www.youtube.com/embed/bNyUyrR0PHo')"><i>🌍</i><span>الجزيرة</span></div>
-    <div class="card" data-cat="news" onclick="change('https://www.youtube.com/embed/w_dwZ_LQRH0')"><i>🌍</i><span>العربية</span></div>
-    <div class="card" data-cat="news" onclick="change('https://www.youtube.com/embed/s9idWvO-N9o')"><i>🌍</i><span>سكاي نيوز</span></div>
-
-    <div class="card" data-cat="sport" onclick="change('https://www.youtube.com/embed/Xm_2zS0-j8Y')"><i>⚽</i><span>beIN الإخبارية</span></div>
+<div class="tabs">
+    <button class="active" onclick="filter('all', this)">الكل ✨</button>
+    <button onclick="filter('sport', this)">beIN & رياضة ⚽</button>
+    <button onclick="filter('yemen', this)">اليمن 🇾🇪</button>
+    <button onclick="filter('nile', this)">نايل سات 🛰️</button>
+    <button onclick="filter('islam', this)">إسلامي 🌙</button>
 </div>
 
+<div id="loader">جاري تحضير قائمة القنوات الذهبية...</div>
+<div class="grid" id="main-grid"></div>
+
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
-    function change(url) {
-        document.getElementById('player-box').innerHTML = `<iframe src="${url}?autoplay=1" allowfullscreen allow="autoplay"></iframe>`;
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    const video = document.getElementById('player');
+    const player = new Plyr(video);
+    const hls = new Hls();
+    const grid = document.getElementById('main-grid');
+    const loader = document.getElementById('loader');
+
+    // المصدر العالمي الموثوق للقنوات العربية و beIN
+    const m3uUrl = 'https://raw.githubusercontent.com/mohamed-attya/IPTV-Free-Arabic/master/Arabic.m3u';
+
+    async function loadChannels() {
+        try {
+            const response = await fetch(m3uUrl);
+            const data = await response.text();
+            const lines = data.split('\n');
+            let channels = [];
+            let currentName = '';
+
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].startsWith('#EXTINF:')) {
+                    currentName = lines[i].split(',')[1] || 'قناة غير معروفة';
+                } else if (lines[i].startsWith('http')) {
+                    let url = lines[i].trim();
+                    let low = currentName.toLowerCase();
+                    let cat = 'nile'; // الافتراضي نايل سات
+                    
+                    if (low.includes('bein') || low.includes('sport') || low.includes('ssc') || low.includes('alkass')) cat = 'sport';
+                    else if (low.includes('yemen') || low.includes('shabab') || low.includes('mahr')) cat = 'yemen';
+                    else if (low.includes('quran') || low.includes('قرآن') || low.includes('islam')) cat = 'islam';
+
+                    channels.push({ name: currentName, url: url, cat: cat });
+                }
+            }
+            render(channels);
+            loader.style.display = 'none';
+        } catch (e) {
+            loader.innerText = '⚠️ حدث خطأ في جلب القنوات، يرجى إعادة المحاولة';
+        }
     }
 
-    function filter(cat) {
+    function render(list) {
+        grid.innerHTML = list.map(ch => `
+            <div class="card" data-cat="${ch.cat}" onclick="play('${ch.url}')">
+                <i>${ch.cat === 'sport' ? '⚽' : ch.cat === 'yemen' ? '🇾🇪' : ch.cat === 'islam' ? '🌙' : '🛰️'}</i>
+                <span>${ch.name}</span>
+            </div>
+        `).join('');
+    }
+
+    function play(url) {
+        if (Hls.isSupported()) {
+            hls.loadSource(url);
+            hls.attachMedia(video);
+        } else {
+            video.src = url;
+        }
+        player.play();
+        window.scrollTo({ top: 55, behavior: 'smooth' });
+    }
+
+    function filter(cat, btn) {
         document.querySelectorAll('.card').forEach(c => {
             c.style.display = (cat === 'all' || c.dataset.cat === cat) ? 'block' : 'none';
         });
-        document.querySelectorAll('.nav-bar button').forEach(b => b.classList.remove('active'));
-        event.target.classList.add('active');
+        document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
     }
+
+    function search() {
+        let val = document.getElementById('searchBar').value.toLowerCase();
+        document.querySelectorAll('.card').forEach(c => {
+            c.style.display = c.innerText.toLowerCase().includes(val) ? 'block' : 'none';
+        });
+    }
+
+    loadChannels();
 </script>
 </body>
 </html>
