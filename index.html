@@ -3,49 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAFIQ TV | المنصة الشاملة 💎</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#050811">
+    <title>RAFIQ TV | الإصدار المباشر 💎</title>
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
     <style>
         :root { --main: #00f2fe; --bg: #050811; --card: #131927; --vip: #ff0055; }
-        body { margin: 0; background: var(--bg); color: white; font-family: sans-serif; }
-        header { padding: 15px; text-align: center; background: #111; border-bottom: 2px solid var(--main); font-weight: bold; position: sticky; top: 0; z-index: 2000; }
-        .video-box { position: sticky; top: 55px; z-index: 1000; background: #000; border-bottom: 1px solid var(--main); }
-        video { width: 100%; max-height: 250px; }
-        .search-area { padding: 10px; background: #0a111f; }
-        #search { width: 90%; padding: 12px; border-radius: 25px; border: 1px solid var(--main); background: #1e293b; color: white; text-align: center; margin: 0 5%; }
-        .tabs { display: flex; overflow-x: auto; gap: 8px; padding: 15px; scrollbar-width: none; }
-        .tabs button { background: var(--card); color: white; border: 1px solid #333; padding: 10px 22px; border-radius: 20px; cursor: pointer; white-space: nowrap; }
+        body { margin: 0; background: var(--bg); color: white; font-family: sans-serif; text-align: center; }
+        header { padding: 15px; background: #111; border-bottom: 2px solid var(--main); font-weight: bold; }
+        .player-fixed { position: sticky; top: 0; z-index: 1000; background: #000; border-bottom: 1px solid var(--main); }
+        video { width: 100%; max-height: 240px; }
+        .tabs { display: flex; overflow-x: auto; gap: 8px; padding: 15px; background: #0a111f; }
+        .tabs button { background: var(--card); color: white; border: 1px solid #333; padding: 10px 20px; border-radius: 20px; cursor: pointer; white-space: nowrap; }
         .tabs button.active { background: var(--main); color: #000; font-weight: bold; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); gap: 12px; padding: 15px; }
-        .card { background: var(--card); border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #222; cursor: pointer; position: relative; transition: 0.3s; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; padding: 15px; }
+        .card { background: var(--card); border-radius: 12px; padding: 15px; border: 1px solid #222; cursor: pointer; transition: 0.3s; }
         .card:hover { border-color: var(--main); transform: scale(1.05); }
         .card i { font-size: 26px; display: block; margin-bottom: 8px; }
-        .badge { position: absolute; top: 5px; right: 5px; background: var(--vip); color: white; font-size: 8px; padding: 2px 6px; border-radius: 5px; }
+        .card span { font-size: 11px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<header>🚀 RAFIQ TV - تطبيق البث المباشر 🚀</header>
+<header>🚀 رفيق TV - البث المباشر المضمون 🚀</header>
 
-<div class="video-box">
+<div class="player-fixed">
     <video id="player" playsinline controls></video>
-</div>
-
-<div class="search-area">
-    <input type="text" id="search" placeholder="🔍 ابحث عن أي قناة أو باقة..." onkeyup="searchFun()">
 </div>
 
 <div class="tabs">
     <button class="active" onclick="filter('all', this)">الكل ✨</button>
-    <button style="border-color:var(--vip);color:var(--vip)" onclick="filter('vip', this)">SHAHID & Netflix 🍿</button>
-    <button onclick="filter('sport', this)">beIN الرياضية ⚽</button>
     <button onclick="filter('yemen', this)">اليمن 🇾🇪</button>
-    <button onclick="filter('nile', this)">نايل سات 🛰️</button>
+    <button onclick="filter('sport', this)">الرياضة ⚽</button>
+    <button onclick="filter('islam', this)">إسلامي 🌙</button>
 </div>
 
-<div class="grid" id="main-grid"></div>
+<div class="grid" id="main-grid">
+    <div class="card" data-cat="yemen" onclick="play('https://yemenshabab.com/live/index.m3u8')"><i>🇾🇪</i><span>يمن شباب</span></div>
+    <div class="card" data-cat="yemen" onclick="play('https://almahriah.net/live/master.m3u8')"><i>🇾🇪</i><span>المهرية</span></div>
+    <div class="card" data-cat="yemen" onclick="play('https://adenatv.net/hls/stream.m3u8')"><i>🇾🇪</i><span>قناة عدن</span></div>
+
+    <div class="card" data-cat="sport" onclick="play('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_1.m3u8')"><i>⚽</i><span>beIN 1</span></div>
+    <div class="card" data-cat="sport" onclick="play('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_2.m3u8')"><i>⚽</i><span>beIN 2</span></div>
+
+    <div class="card" data-cat="islam" onclick="play('https://win.holol.com/live/quran/playlist.m3u8')"><i>🌙</i><span>القرآن الكريم</span></div>
+    <div class="card" data-cat="islam" onclick="play('https://win.holol.com/live/sunnah/playlist.m3u8')"><i>🕌</i><span>السنة النبوية</span></div>
+</div>
 
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -53,72 +54,24 @@
     const video = document.getElementById('player');
     const player = new Plyr(video);
     const hls = new Hls();
-    const grid = document.getElementById('main-grid');
-
-    const m3uSource = 'https://raw.githubusercontent.com/mohamed-attya/IPTV-Free-Arabic/master/Arabic.m3u';
-
-    async function load() {
-        try {
-            const resp = await fetch(m3uSource);
-            const data = await resp.text();
-            const channels = parse(data);
-            render(channels);
-        } catch (e) { console.error("Error loading channels"); }
-    }
-
-    function parse(data) {
-        const lines = data.split('\n');
-        let list = [];
-        let name = '';
-        lines.forEach(line => {
-            if (line.startsWith('#EXTINF:')) name = line.split(',')[1] || 'قناة';
-            else if (line.startsWith('http')) {
-                let low = name.toLowerCase();
-                let cat = 'nile';
-                if (low.includes('shahid') || low.includes('netflix') || low.includes('movie')) cat = 'vip';
-                else if (low.includes('bein') || low.includes('sport')) cat = 'sport';
-                else if (low.includes('yemen')) cat = 'yemen';
-                list.push({ name, url: line.trim(), cat });
-            }
-        });
-        return list;
-    }
-
-    function render(list) {
-        grid.innerHTML = list.map(ch => `
-            <div class="card" data-cat="${ch.cat}" onclick="play('${ch.url}')">
-                ${ch.cat === 'vip' ? '<div class="badge">VIP</div>' : ''}
-                <i>${ch.cat === 'vip' ? '🍿' : ch.cat === 'sport' ? '⚽' : ch.cat === 'yemen' ? '🇾🇪' : '🛰️'}</i>
-                <span>${ch.name}</span>
-            </div>
-        `).join('');
-    }
 
     function play(url) {
         if (Hls.isSupported()) {
             hls.loadSource(url);
             hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-        } else { video.src = url; video.play(); }
-        window.scrollTo({ top: 55, behavior: 'smooth' });
+            hls.on(Hls.Events.MANIFEST_PARSED, function() { video.play(); });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = url;
+            video.play();
+        }
     }
 
     function filter(cat, btn) {
-        document.querySelectorAll('.card').forEach(c => c.style.display = (cat === 'all' || c.dataset.cat === cat) ? 'block' : 'none');
+        document.querySelectorAll('.card').forEach(c => {
+            c.style.display = (cat === 'all' || c.dataset.cat === cat) ? 'block' : 'none';
+        });
         document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-    }
-
-    function searchFun() {
-        let val = document.getElementById('search').value.toLowerCase();
-        document.querySelectorAll('.card').forEach(c => c.style.display = c.innerText.toLowerCase().includes(val) ? 'block' : 'none');
-    }
-
-    load();
-
-    // تفعيل ميزة التطبيق
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js');
     }
 </script>
 </body>
