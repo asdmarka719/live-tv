@@ -3,78 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إمبراطورية رفيق TV | البث المباشر المضمون 💎</title>
-    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    <title>RAFIQ TV | البث المباشر 💎</title>
     <style>
-        :root { --main: #00f2fe; --bg: #050811; --card: #131927; --vip: #ff0055; }
-        body { margin: 0; background: var(--bg); color: white; font-family: sans-serif; text-align: center; }
-        header { padding: 15px; background: #111; border-bottom: 2px solid var(--main); font-weight: bold; }
-        .player-container { position: sticky; top: 0; z-index: 1000; background: #000; border-bottom: 1px solid var(--main); }
-        video { width: 100%; max-height: 250px; }
-        .tabs { display: flex; overflow-x: auto; gap: 8px; padding: 12px; background: #0a111f; scrollbar-width: none; }
-        .tabs button { background: var(--card); color: white; border: 1px solid #333; padding: 10px 20px; border-radius: 20px; cursor: pointer; white-space: nowrap; }
-        .tabs button.active { background: var(--main); color: #000; font-weight: bold; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; padding: 15px; }
-        .card { background: var(--card); border-radius: 12px; padding: 15px; border: 1px solid #222; cursor: pointer; transition: 0.3s; position: relative; }
-        .card:hover { border-color: var(--main); transform: scale(1.05); }
-        .card i { font-size: 28px; display: block; margin-bottom: 8px; }
-        .card span { font-size: 11px; font-weight: bold; }
-        .badge { position: absolute; top: 5px; right: 5px; background: var(--vip); color: white; font-size: 8px; padding: 2px 6px; border-radius: 5px; }
+        body { background: #050811; color: white; font-family: sans-serif; text-align: center; padding: 20px; }
+        .btn-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
+        .channel-card { 
+            background: #131927; padding: 20px; border-radius: 15px; border: 2px solid #00f2fe;
+            text-decoration: none; color: white; font-weight: bold; transition: 0.3s;
+        }
+        .channel-card:active { transform: scale(0.9); background: #00f2fe; color: #000; }
+        .section-title { color: #ff0055; margin-top: 30px; border-bottom: 1px solid #333; padding-bottom: 10px; }
     </style>
 </head>
 <body>
 
-<header>🚀 إمبراطورية رفيق TV (إصدار الثبات) 🚀</header>
+    <h1>💎 إمبراطورية رفيق TV 💎</h1>
+    <p>إذا لم يعمل البث، تأكد من تثبيت تطبيق <b>VLC</b> على هاتفك</p>
 
-<div class="player-container">
-    <video id="player" playsinline controls></video>
-</div>
+    <h2 class="section-title">🇾🇪 قنوات اليمن (بث مباشر)</h2>
+    <div class="btn-box">
+        <a class="channel-card" href="https://yemenshabab.com/live/index.m3u8">📺 يمن شباب</a>
+        <a class="channel-card" href="https://almahriah.net/live/master.m3u8">📺 المهرية</a>
+        <a class="channel-card" href="https://adenatv.net/hls/stream.m3u8">📺 قناة عدن</a>
+    </div>
 
-<div class="tabs">
-    <button class="active" onclick="filter('all', this)">الكل ✨</button>
-    <button style="color:var(--vip);border-color:var(--vip)" onclick="filter('vip', this)">شاهد ونتفلكس 🍿</button>
-    <button onclick="filter('sport', this)">beIN الرياضية ⚽</button>
-    <button onclick="filter('yemen', this)">اليمن 🇾🇪</button>
-</div>
+    <h2 class="section-title">⚽ قنوات beIN Sports</h2>
+    <div class="btn-box">
+        <a class="channel-card" href="https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_1.m3u8">⚽ beIN 1</a>
+        <a class="channel-card" href="https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_2.m3u8">⚽ beIN 2</a>
+    </div>
 
-<div class="grid" id="main-grid">
-    <div class="card" data-cat="vip" onclick="play('https://shls-premium-live-v4.akamaized.net/out/v1/f036733f11904a08893121d51a669748/index.m3u8')"><div class="badge">VIP</div><i>🍿</i><span>Shahid VIP</span></div>
-    
-    <div class="card" data-cat="sport" onclick="play('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_1.m3u8')"><i>⚽</i><span>beIN Sports 1</span></div>
-    <div class="card" data-cat="sport" onclick="play('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_2.m3u8')"><i>⚽</i><span>beIN Sports 2</span></div>
-    
-    <div class="card" data-cat="yemen" onclick="play('https://yemenshabab.com/live/index.m3u8')"><i>🇾🇪</i><span>يمن شباب</span></div>
-    <div class="card" data-cat="yemen" onclick="play('https://almahriah.net/live/master.m3u8')"><i>🇾🇪</i><span>المهرية</span></div>
-    
-    <div class="card" data-cat="islam" onclick="play('https://win.holol.com/live/quran/playlist.m3u8')"><i>🌙</i><span>القرآن الكريم</span></div>
-</div>
+    <h2 class="section-title">🍿 شاهد ونتفلكس (VIP)</h2>
+    <div class="btn-box">
+        <a class="channel-card" href="https://shls-premium-live-v4.akamaized.net/out/v1/f036733f11904a08893121d51a669748/index.m3u8">💎 Shahid VIP</a>
+        <a class="channel-card" href="https://win.holol.com/live/quran/playlist.m3u8">🌙 القرآن الكريم</a>
+    </div>
 
-<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-<script>
-    const video = document.getElementById('player');
-    const player = new Plyr(video);
-    const hls = new Hls();
-
-    function play(url) {
-        if (Hls.isSupported()) {
-            hls.loadSource(url);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function() { video.play(); });
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = url;
-            video.play();
-        }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function filter(cat, btn) {
-        document.querySelectorAll('.card').forEach(c => {
-            c.style.display = (cat === 'all' || c.dataset.cat === cat) ? 'block' : 'none';
-        });
-        document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-    }
-</script>
 </body>
 </html>
