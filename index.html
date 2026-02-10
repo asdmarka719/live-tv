@@ -3,41 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAFIQ TV | البث المباشر 💎</title>
+    <title>إمبراطورية رفيق TV | النسخة المستحيلة 💎</title>
+    <link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
     <style>
-        body { background: #050811; color: white; font-family: sans-serif; text-align: center; padding: 20px; }
-        .btn-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
-        .channel-card { 
-            background: #131927; padding: 20px; border-radius: 15px; border: 2px solid #00f2fe;
-            text-decoration: none; color: white; font-weight: bold; transition: 0.3s;
-        }
-        .channel-card:active { transform: scale(0.9); background: #00f2fe; color: #000; }
-        .section-title { color: #ff0055; margin-top: 30px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        :root { --main: #00f2fe; --bg: #050811; --card: #131927; }
+        body { margin: 0; background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; }
+        header { padding: 15px; text-align: center; background: #111; border-bottom: 2px solid var(--main); font-weight: bold; font-size: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .video-container { position: sticky; top: 0; z-index: 1000; background: #000; width: 100%; border-bottom: 2px solid var(--main); }
+        .video-js { width: 100% !important; height: 250px !important; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; padding: 20px; }
+        .card { background: var(--card); border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #222; cursor: pointer; transition: 0.3s; }
+        .card:hover { border-color: var(--main); transform: scale(1.05); background: #1e293b; }
+        .card i { font-size: 30px; display: block; margin-bottom: 10px; }
+        .card span { font-size: 12px; font-weight: bold; }
+        .category-title { color: var(--main); padding: 10px 20px 0; text-align: right; font-size: 18px; border-bottom: 1px solid #333; margin: 0 20px; }
     </style>
 </head>
 <body>
 
-    <h1>💎 إمبراطورية رفيق TV 💎</h1>
-    <p>إذا لم يعمل البث، تأكد من تثبيت تطبيق <b>VLC</b> على هاتفك</p>
+<header>🚀 RAFIQ TV - الإمبراطورية لا تنكسر 🚀</header>
 
-    <h2 class="section-title">🇾🇪 قنوات اليمن (بث مباشر)</h2>
-    <div class="btn-box">
-        <a class="channel-card" href="https://yemenshabab.com/live/index.m3u8">📺 يمن شباب</a>
-        <a class="channel-card" href="https://almahriah.net/live/master.m3u8">📺 المهرية</a>
-        <a class="channel-card" href="https://adenatv.net/hls/stream.m3u8">📺 قناة عدن</a>
-    </div>
+<div class="video-container">
+    <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" data-setup='{}'>
+        <p class="vjs-no-js">لشغيل هذا الفيديو، يرجى تفعيل جافا سكريبت.</p>
+    </video>
+</div>
 
-    <h2 class="section-title">⚽ قنوات beIN Sports</h2>
-    <div class="btn-box">
-        <a class="channel-card" href="https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_1.m3u8">⚽ beIN 1</a>
-        <a class="channel-card" href="https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_2.m3u8">⚽ beIN 2</a>
-    </div>
+<div class="category-title">🇾🇪 باقة اليمن</div>
+<div class="grid">
+    <div class="card" onclick="changeSource('https://yemenshabab.com/live/index.m3u8')"><i>🇾🇪</i><span>يمن شباب</span></div>
+    <div class="card" onclick="changeSource('https://almahriah.net/live/master.m3u8')"><i>🇾🇪</i><span>المهرية</span></div>
+</div>
 
-    <h2 class="section-title">🍿 شاهد ونتفلكس (VIP)</h2>
-    <div class="btn-box">
-        <a class="channel-card" href="https://shls-premium-live-v4.akamaized.net/out/v1/f036733f11904a08893121d51a669748/index.m3u8">💎 Shahid VIP</a>
-        <a class="channel-card" href="https://win.holol.com/live/quran/playlist.m3u8">🌙 القرآن الكريم</a>
-    </div>
+<div class="category-title">⚽ باقة beIN & الرياضة</div>
+<div class="grid">
+    <div class="card" onclick="changeSource('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_1.m3u8')"><i>⚽</i><span>beIN 1</span></div>
+    <div class="card" onclick="changeSource('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_2.m3u8')"><i>⚽</i><span>beIN 2</span></div>
+</div>
 
+<div class="category-title">💎 باقة VIP (شاهد & قرآن)</div>
+<div class="grid">
+    <div class="card" onclick="changeSource('https://shls-premium-live-v4.akamaized.net/out/v1/f036733f11904a08893121d51a669748/index.m3u8')"><i>🍿</i><span>Shahid VIP</span></div>
+    <div class="card" onclick="changeSource('https://win.holol.com/live/quran/playlist.m3u8')"><i>🕌</i><span>القرآن المباشر</span></div>
+</div>
+
+<script src="https://vjs.zencdn.net/8.3.0/video.min.js"></script>
+<script>
+    var player = videojs('my-video');
+
+    function changeSource(url) {
+        player.src({
+            src: url,
+            type: 'application/x-mpegURL'
+        });
+        player.play();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
 </body>
 </html>
