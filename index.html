@@ -3,63 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إمبراطورية رفيق TV | نسخة كسر المستحيل 💎</title>
+    <title>إمبراطورية رفيق TV | نسخة التحدي 💎</title>
     <link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
     <style>
         :root { --main: #00f2fe; --bg: #050811; --card: #131927; }
-        body { margin: 0; background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; text-align: center; }
-        header { padding: 15px; background: #111; border-bottom: 2px solid var(--main); font-weight: bold; font-size: 20px; box-shadow: 0 4px 15px rgba(0,242,254,0.3); }
-        .player-wrapper { position: sticky; top: 0; z-index: 1000; background: #000; border-bottom: 2px solid var(--main); }
-        .video-js { width: 100% !important; height: 250px !important; }
+        body { margin: 0; background: var(--bg); color: white; font-family: sans-serif; text-align: center; }
+        header { padding: 15px; background: #111; border-bottom: 2px solid var(--main); font-weight: bold; box-shadow: 0 0 20px rgba(0,242,254,0.2); }
+        .video-box { position: sticky; top: 0; z-index: 1000; background: #000; border-bottom: 2px solid var(--main); }
+        .video-js { width: 100% !important; height: 240px !important; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; padding: 20px; }
-        .card { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #222; cursor: pointer; transition: 0.3s; }
-        .card:hover { border-color: var(--main); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,242,254,0.2); }
-        .card i { font-size: 30px; display: block; margin-bottom: 8px; }
-        .card span { font-size: 12px; font-weight: bold; color: #eee; }
-        .category { color: var(--main); text-align: right; padding: 10px 25px 0; font-size: 18px; font-weight: bold; }
+        .card { background: var(--card); border-radius: 12px; padding: 15px; border: 1px solid #222; cursor: pointer; transition: 0.3s; }
+        .card:hover { border-color: var(--main); transform: scale(1.05); }
+        .card i { font-size: 28px; display: block; margin-bottom: 8px; }
+        .card span { font-size: 11px; font-weight: bold; }
+        .title-sep { color: var(--main); text-align: right; padding: 10px 25px 0; font-size: 18px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<header>🚀 RAFIQ TV - الإمبراطورية التي لا تُهزم 🚀</header>
+<header>🚀 RAFIQ TV - المحاولة الكبرى 🚀</header>
 
-<div class="player-wrapper">
-    <video id="tv-player" class="video-js vjs-big-play-centered" controls preload="auto" data-setup='{}'>
-        <p class="vjs-no-js">يرجى استخدام متصفح حديث (Chrome).</p>
+<div class="video-box">
+    <video id="player" class="video-js vjs-big-play-centered" controls preload="auto">
+        <p class="vjs-no-js">يرجى تحديث المتصفح.</p>
     </video>
 </div>
 
-<div class="category">🇾🇪 قنوات اليمن المضمونة</div>
+<div class="title-sep">🇾🇪 باقة اليمن المباشرة</div>
 <div class="grid">
     <div class="card" onclick="playCh('https://yemenshabab.com/live/index.m3u8')"><i>🇾🇪</i><span>يمن شباب</span></div>
     <div class="card" onclick="playCh('https://almahriah.net/live/master.m3u8')"><i>🇾🇪</i><span>المهرية</span></div>
     <div class="card" onclick="playCh('https://adenatv.net/hls/stream.m3u8')"><i>🛰️</i><span>قناة عدن</span></div>
 </div>
 
-<div class="category">⚽ باقة beIN & الرياضة</div>
+<div class="title-sep">⚽ الرياضة و beIN</div>
 <div class="grid">
     <div class="card" onclick="playCh('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_1.m3u8')"><i>⚽</i><span>beIN 1</span></div>
     <div class="card" onclick="playCh('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_2.m3u8')"><i>⚽</i><span>beIN 2</span></div>
 </div>
 
-<div class="category">🌙 باقة الهدى والقرآن</div>
+<div class="title-sep">🕌 قنوات دينية</div>
 <div class="grid">
-    <div class="card" onclick="playCh('https://win.holol.com/live/quran/playlist.m3u8')"><i>🕌</i><span>القرآن الكريم</span></div>
+    <div class="card" onclick="playCh('https://win.holol.com/live/quran/playlist.m3u8')"><i>🕋</i><span>القرآن الكريم</span></div>
     <div class="card" onclick="playCh('https://win.holol.com/live/sunnah/playlist.m3u8')"><i>📜</i><span>السنة النبوية</span></div>
 </div>
 
 <script src="https://vjs.zencdn.net/8.3.0/video.min.js"></script>
 <script>
-    var player = videojs('tv-player');
+    var player = videojs('player');
 
     function playCh(url) {
-        player.src({
-            src: url,
-            type: 'application/x-mpegURL'
-        });
+        player.src({ src: url, type: 'application/x-mpegURL' });
         player.play();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
 </body>
 </html>
+
