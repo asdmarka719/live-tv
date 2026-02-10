@@ -3,61 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إمبراطورية رفيق TV | النسخة المستحيلة 💎</title>
+    <title>إمبراطورية رفيق TV | التحدي الأخير 💎</title>
     <link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
     <style>
-        :root { --main: #00f2fe; --bg: #050811; --card: #131927; }
+        :root { --main: #00f2fe; --bg: #050811; --card: #131927; --vip: #ff0055; }
         body { margin: 0; background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; }
-        header { padding: 15px; text-align: center; background: #111; border-bottom: 2px solid var(--main); font-weight: bold; font-size: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        .video-container { position: sticky; top: 0; z-index: 1000; background: #000; width: 100%; border-bottom: 2px solid var(--main); }
-        .video-js { width: 100% !important; height: 250px !important; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; padding: 20px; }
-        .card { background: var(--card); border-radius: 12px; padding: 15px; text-align: center; border: 1px solid #222; cursor: pointer; transition: 0.3s; }
-        .card:hover { border-color: var(--main); transform: scale(1.05); background: #1e293b; }
+        header { padding: 15px; text-align: center; background: #111; border-bottom: 2px solid var(--main); font-weight: bold; font-size: 22px; }
+        .video-box { position: sticky; top: 0; z-index: 1000; background: #000; width: 100%; border-bottom: 2px solid var(--main); }
+        .video-js { width: 100% !important; height: 230px !important; }
+        .tabs { display: flex; overflow-x: auto; gap: 10px; padding: 15px; background: #0a111f; scrollbar-width: none; }
+        .tabs button { background: var(--card); color: white; border: 1px solid #333; padding: 10px 20px; border-radius: 25px; cursor: pointer; white-space: nowrap; font-weight: bold; }
+        .tabs button.active { background: var(--main); color: #000; box-shadow: 0 0 15px var(--main); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; padding: 15px; }
+        .card { background: var(--card); border-radius: 15px; padding: 15px; text-align: center; border: 1px solid #222; cursor: pointer; transition: 0.3s; position: relative; }
+        .card:hover { border-color: var(--main); transform: translateY(-5px); }
         .card i { font-size: 30px; display: block; margin-bottom: 10px; }
-        .card span { font-size: 12px; font-weight: bold; }
-        .category-title { color: var(--main); padding: 10px 20px 0; text-align: right; font-size: 18px; border-bottom: 1px solid #333; margin: 0 20px; }
+        .card span { font-size: 12px; font-weight: bold; display: block; }
+        .badge { position: absolute; top: 5px; right: 5px; background: var(--vip); color: white; font-size: 9px; padding: 2px 6px; border-radius: 5px; }
     </style>
 </head>
 <body>
 
-<header>🚀 RAFIQ TV - الإمبراطورية لا تنكسر 🚀</header>
+<header>💎 RAFIQ TV - إصدار كسر الحظر 💎</header>
 
-<div class="video-container">
-    <video id="my-video" class="video-js vjs-big-play-centered" controls preload="auto" data-setup='{}'>
-        <p class="vjs-no-js">لشغيل هذا الفيديو، يرجى تفعيل جافا سكريبت.</p>
+<div class="video-box">
+    <video id="main-player" class="video-js vjs-big-play-centered" controls preload="auto" data-setup='{}'>
+        <p class="vjs-no-js">يرجى تحديث المتصفح لدعم التشغيل.</p>
     </video>
 </div>
 
-<div class="category-title">🇾🇪 باقة اليمن</div>
-<div class="grid">
-    <div class="card" onclick="changeSource('https://yemenshabab.com/live/index.m3u8')"><i>🇾🇪</i><span>يمن شباب</span></div>
-    <div class="card" onclick="changeSource('https://almahriah.net/live/master.m3u8')"><i>🇾🇪</i><span>المهرية</span></div>
+<div class="tabs">
+    <button class="active" onclick="filter('all', this)">الكل ✨</button>
+    <button style="border-color:var(--vip);color:var(--vip)" onclick="filter('vip', this)">SHAHID & Netflix 🍿</button>
+    <button onclick="filter('sport', this)">beIN الرياضية ⚽</button>
+    <button onclick="filter('yemen', this)">قنوات اليمن 🇾🇪</button>
 </div>
 
-<div class="category-title">⚽ باقة beIN & الرياضة</div>
-<div class="grid">
-    <div class="card" onclick="changeSource('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_1.m3u8')"><i>⚽</i><span>beIN 1</span></div>
-    <div class="card" onclick="changeSource('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_2.m3u8')"><i>⚽</i><span>beIN 2</span></div>
-</div>
+<div class="grid" id="container">
+    <div class="card" data-cat="yemen" onclick="play('https://yemenshabab.com/live/index.m3u8')"><i>🇾🇪</i><span>يمن شباب</span></div>
+    <div class="card" data-cat="yemen" onclick="play('https://almahriah.net/live/master.m3u8')"><i>🇾🇪</i><span>المهرية</span></div>
+    <div class="card" data-cat="yemen" onclick="play('https://adenatv.net/hls/stream.m3u8')"><i>🇾🇪</i><span>قناة عدن</span></div>
 
-<div class="category-title">💎 باقة VIP (شاهد & قرآن)</div>
-<div class="grid">
-    <div class="card" onclick="changeSource('https://shls-premium-live-v4.akamaized.net/out/v1/f036733f11904a08893121d51a669748/index.m3u8')"><i>🍿</i><span>Shahid VIP</span></div>
-    <div class="card" onclick="changeSource('https://win.holol.com/live/quran/playlist.m3u8')"><i>🕌</i><span>القرآن المباشر</span></div>
+    <div class="card" data-cat="sport" onclick="play('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_1.m3u8')"><i>⚽</i><span>beIN 1</span></div>
+    <div class="card" data-cat="sport" onclick="play('https://raw.githubusercontent.com/Refat-1/IPTV/main/Bein_Sports_2.m3u8')"><i>⚽</i><span>beIN 2</span></div>
+    
+    <div class="card" data-cat="vip" onclick="play('https://shls-premium-live-v4.akamaized.net/out/v1/f036733f11904a08893121d51a669748/index.m3u8')"><div class="badge">VIP</div><i>🍿</i><span>Shahid VIP</span></div>
+    <div class="card" data-cat="vip" onclick="play('https://win.holol.com/live/quran/playlist.m3u8')"><i>🕌</i><span>القرآن الكريم</span></div>
 </div>
 
 <script src="https://vjs.zencdn.net/8.3.0/video.min.js"></script>
 <script>
-    var player = videojs('my-video');
+    var player = videojs('main-player');
 
-    function changeSource(url) {
+    function play(url) {
         player.src({
             src: url,
             type: 'application/x-mpegURL'
         });
-        player.play();
+        player.play().catch(function(error) {
+            console.log("التشغيل التلقائي محظور، يرجى الضغط على زر التشغيل.");
+        });
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function filter(cat, btn) {
+        document.querySelectorAll('.card').forEach(c => {
+            c.style.display = (cat === 'all' || c.dataset.cat === cat) ? 'block' : 'none';
+        });
+        document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
     }
 </script>
 </body>
