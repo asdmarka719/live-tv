@@ -6,16 +6,17 @@
     <title>إمبراطورية رفيق TV | الإصدار الذهبي 💎</title>
     <link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
     <style>
-        :root { --main: #00f2fe; --bg: #050811; --card: #131927; }
+        :root { --main: #00f2fe; --bg: #050811; --card: #131927; --vip: #ff0055; }
         body { margin: 0; background: var(--bg); color: white; font-family: sans-serif; text-align: center; }
         header { padding: 15px; background: #111; border-bottom: 2px solid var(--main); font-weight: bold; font-size: 20px; box-shadow: 0 0 15px var(--main); }
         .player-container { position: sticky; top: 0; z-index: 1000; background: #000; border-bottom: 2px solid var(--main); }
         .video-js { width: 100% !important; height: 250px !important; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; padding: 20px; }
-        .card { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #222; cursor: pointer; transition: 0.3s; }
+        .card { background: var(--card); border-radius: 15px; padding: 15px; border: 1px solid #222; cursor: pointer; transition: 0.3s; position: relative; }
         .card:hover { border-color: var(--main); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,242,254,0.3); }
         .card i { font-size: 30px; display: block; margin-bottom: 10px; }
         .card span { font-size: 12px; font-weight: bold; }
+        .badge { position: absolute; top: 5px; right: 5px; background: var(--vip); color: white; font-size: 8px; padding: 2px 6px; border-radius: 5px; }
         .cat-label { color: var(--main); text-align: right; padding: 10px 25px 0; font-size: 18px; font-weight: bold; border-bottom: 1px solid #333; margin: 0 20px; }
     </style>
 </head>
